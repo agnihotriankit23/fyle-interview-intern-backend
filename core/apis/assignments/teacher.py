@@ -29,11 +29,12 @@ def list_assignments(p):
 def upsert_assignment(p, incoming_payload):
     """Updating the Grade"""
     # assignment = AssignmentSchema().load(incoming_payload) --- This will not work here.
-    # assignment.teacher_id = p.teacher_id
+
     # I have to create a new Assignment Grade Schema
 
     grade_assignment_payload = AssignmentGradeSchema().load(incoming_payload)
 
+    # Assignment.update_grade is my new method inside Assignment class
     graded_assignment = Assignment.update_grade(
         _id=grade_assignment_payload.id,
         new_grade=grade_assignment_payload.grade,
